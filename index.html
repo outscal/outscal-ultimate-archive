@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Outscal Ultimate Archive</title>
+<meta name="description" content="Everything Outscal built stays open for all — courses, resources, jobs, and more." />
+<link rel="icon" type="image/gif" href="outscal.gif" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   The Outscal Ultimate Archive — homepage
+   Cartridge shelf direction. Inherits the palette + type
+   system from the Resource Archive.
+   ========================================================= */
+
+:root {
+  --ink: #0A0A0A;
+  --ink-soft: #3A3A3A;
+  --muted: #7A7A7A;
+  --rule: #E8E5DC;
+  --paper: #FAFAF6;
+  --paper-tint: #F2EFE6;
+  --yellow: #F5C518;
+  --blue: #3B6BE0;
+
+  --serif: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.55;
+}
+a { color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+/* ---------------- MASTHEAD ---------------- */
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: rgba(250, 250, 246, 0.88);
+  backdrop-filter: saturate(160%) blur(8px);
+  position: sticky; top: 0; z-index: 20;
+}
+.masthead-inner {
+  display: flex; align-items: center; gap: 24px;
+  padding: 16px 0;
+}
+.brand {
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 17px;
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+.brand .mark { width: 28px; height: 28px; display: block; flex-shrink: 0; }
+.brand .title { display: flex; align-items: baseline; gap: 10px; }
+.brand .dot { color: var(--yellow); }
+.brand .by { color: var(--muted); font-weight: 500; font-size: 13px; letter-spacing: 0; }
+@media (max-width: 560px) { .brand .by { display: none; } }
+
+/* ---------------- HERO ---------------- */
+.hero { padding: 88px 0 24px; }
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(42px, 7.5vw, 92px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 0 0 24px;
+  font-weight: 700;
+  max-width: 17ch;
+}
+.hero h1 .accent {
+  background: linear-gradient(180deg, transparent 58%, var(--yellow) 58% 92%, transparent 92%);
+  padding: 0 .04em;
+}
+.hero p.lead {
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 600px;
+  margin: 0;
+}
+
+/* ---------------- CARTRIDGE SHELF ---------------- */
+.cartridge-shelf {
+  margin-top: 24px;
+  padding: 24px 0 52px;
+  border-bottom: 1px solid var(--rule);
+  background:
+    linear-gradient(var(--paper), var(--paper)) padding-box,
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 60px,
+      var(--paper-tint) 60px,
+      var(--paper-tint) 61px
+    );
+}
+.cartridge.pressed {
+  transform: translate(0, 0) !important;
+  box-shadow: 2px 2px 0 var(--ink) !important;
+  transition: transform .08s ease, box-shadow .08s ease !important;
+}
+
+.cartridge-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+@media (max-width: 960px) { .cartridge-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .cartridge-grid { grid-template-columns: 1fr; } }
+
+.cartridge {
+  display: flex; flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 6px 6px 2px 2px;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+  box-shadow: 4px 4px 0 var(--ink);
+  position: relative;
+}
+.cartridge:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.cartridge.locked {
+  cursor: not-allowed; pointer-events: none;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--paper),
+    var(--paper) 8px,
+    var(--paper-tint) 8px,
+    var(--paper-tint) 10px
+  );
+  opacity: .78;
+}
+.cartridge .cart-top {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 14px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+}
+.cartridge .cart-top::after {
+  content: "";
+  position: absolute;
+  left: 10px; right: 10px;
+  bottom: -8px;
+  height: 6px;
+  background:
+    linear-gradient(90deg,
+      var(--ink) 0, var(--ink) 12px,
+      transparent 12px, transparent 18px,
+      var(--ink) 18px, var(--ink) 30px,
+      transparent 30px, transparent 36px,
+      var(--ink) 36px);
+  background-repeat: repeat-x;
+  background-size: 36px 6px;
+}
+.cartridge .cart-slot {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  color: var(--paper);
+  opacity: .6;
+  text-transform: uppercase;
+}
+.cartridge .cart-slot .num { color: var(--yellow); opacity: 1; }
+
+.cartridge .cart-label {
+  padding: 26px 16px 18px;
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  gap: 12px;
+}
+.cartridge .cart-label .pictogram { width: 40px; height: 40px; transition: transform .25s ease; }
+.cartridge:hover .pictogram { transform: rotate(-4deg) scale(1.06); }
+
+.cartridge .cart-label h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+  font-weight: 700;
+}
+.cartridge .cart-label p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* spec panel — used by the FSGD card */
+.cart-spec {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  width: 100%;
+  margin-top: auto;
+}
+.cart-spec .spec {
+  display: flex; flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.cart-spec .spec strong {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.cart-spec .spec span {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+/* topic tags */
+.cart-tags {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  width: 100%;
+}
+.cart-tags .tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 7px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  background: var(--paper);
+  letter-spacing: .04em;
+  font-weight: 500;
+}
+
+.cartridge .cart-foot {
+  padding: 12px 16px;
+  border-top: 1px dashed var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: color .2s ease;
+}
+.cartridge:hover .cart-foot { color: var(--ink); }
+
+/* Authentic Xbox-style face buttons */
+.gamepad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: 0;
+  flex-shrink: 0;
+  text-shadow: 0 1px 0 rgba(0,0,0,.3);
+  box-shadow:
+    inset 0 -1.5px 0 rgba(0,0,0,.28),
+    inset 0  1.5px 0 rgba(255,255,255,.28),
+    0 1px 2px rgba(0,0,0,.2);
+  transition: transform .12s ease, filter .12s ease;
+}
+.gamepad-btn.a { background: #3DAB2A; }  /* Xbox A — green  */
+.gamepad-btn.b { background: #E8271D; }  /* Xbox B — red    */
+.gamepad-btn.x { background: #0E7AC8; }  /* Xbox X — blue   */
+.gamepad-btn.y { background: var(--yellow); }  /* Xbox Y — yellow, tuned to page palette */
+.cartridge:hover .gamepad-btn { transform: scale(1.08); }
+.cartridge.pressed .gamepad-btn { transform: scale(0.9); }
+.cartridge.locked .gamepad-btn { filter: grayscale(0.85); opacity: .55; }
+
+.cartridge.locked .cart-top { background: var(--muted); }
+.cartridge.locked .cart-top::after {
+  background:
+    linear-gradient(90deg,
+      var(--muted) 0, var(--muted) 12px,
+      transparent 12px, transparent 18px,
+      var(--muted) 18px, var(--muted) 30px,
+      transparent 30px, transparent 36px,
+      var(--muted) 36px);
+  background-repeat: repeat-x;
+  background-size: 36px 6px;
+}
+
+/* ---------------- GAME OVER LINE ---------------- */
+.game-over {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 36px 0;
+  margin-top: 64px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.game-over .line {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+.game-over .over { color: var(--ink); font-weight: 600; }
+.game-over .dot { color: var(--yellow); }
+.corrupted {
+  display: inline-block;
+  color: var(--ink);
+  font-weight: 600;
+  animation: glitch 2s infinite;
+  will-change: text-shadow, transform;
+}
+/* Classic chromatic aberration — red + cyan, brief burst every 2s */
+@keyframes glitch {
+  0%, 80%, 100% {
+    text-shadow: none;
+    transform: none;
+  }
+  82% { text-shadow: -1.5px 0 #ff003c, 1.5px 0 #00f0ff; transform: translate(0.5px, 0); }
+  84% { text-shadow:  2px   0 #ff003c, -2px   0 #00f0ff; transform: translate(-0.5px, 0); }
+  86% { text-shadow: -2.5px 0 #ff003c, 2.5px 0 #00f0ff; transform: translate(1px, 0); }
+  88% { text-shadow:  1.5px 0 #ff003c, -1.5px 0 #00f0ff; transform: translate(-1px, 0); }
+  90% { text-shadow: -1px   0 #ff003c, 1px   0 #00f0ff; transform: translate(0.5px, 0); }
+  92% { text-shadow: none; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .corrupted { animation: none; }
+}
+
+/* ---------------- FOOTER ---------------- */
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 32px 0 56px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.site-footer .wrap {
+  display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center;
+}
+.site-footer strong { color: var(--ink); font-weight: 600; }
+.site-footer .sep { opacity: .4; }
+.site-footer .wordmark {
+  display: inline-block;
+  width: 112px;
+  height: 22px;
+  background: url("outscal.png") 51.1% 47.7% / auto 425% no-repeat;
+  vertical-align: middle;
+  opacity: .9;
+}
+.site-footer .lockup { display: inline-flex; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="index.html" aria-label="The Outscal Ultimate Archive — home">
+      <img class="mark" src="outscal.gif" alt="" aria-hidden="true" />
+      <span class="title">
+        <span>The Ultimate Archive<span class="dot">.</span></span>
+        <span class="by">by Outscal</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Everything Outscal built <span class="accent">stays open</span> for all.</h1>
+    <p class="lead">Thanks for playing. Everything we made stays yours.</p>
+  </div>
+</section>
+
+<section class="cartridge-shelf">
+  <div class="wrap">
+    <div class="cartridge-grid">
+
+      <!-- Full Stack Game Dev -->
+      <a class="cartridge" href="https://outscal.github.io/Full-Stack-Game-Development" target="_blank" rel="noopener">
+        <div class="cart-top">
+          <span class="cart-slot"><span class="num">01</span> · Slot A</span>
+          <span class="cart-slot">OUTSCAL™</span>
+        </div>
+        <div class="cart-label">
+          <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <rect x="8"  y="30" width="32" height="10" rx="1.5" stroke="#0A0A0A" stroke-width="2.5"/>
+            <rect x="8"  y="18" width="32" height="10" rx="1.5" stroke="#0A0A0A" stroke-width="2.5"/>
+            <rect x="8"  y="6"  width="32" height="10" rx="1.5" stroke="#0A0A0A" stroke-width="2.5" fill="#F5C518"/>
+            <polygon points="31.5,8.5 31.5,13.5 35.5,11" fill="#0A0A0A"/>
+          </svg>
+          <h3>Full Stack Game Dev</h3>
+          <p>The cohort syllabus. Zero to shippable.</p>
+          <div class="cart-tags">
+            <span class="tag">C++</span>
+            <span class="tag">DSA</span>
+            <span class="tag">Unity</span>
+            <span class="tag">Design Patterns</span>
+          </div>
+          <div class="cart-spec">
+            <div class="spec"><strong>31</strong><span>modules</span></div>
+            <div class="spec"><strong>218</strong><span>chapters</span></div>
+            <div class="spec"><strong>1,677</strong><span>materials</span></div>
+          </div>
+        </div>
+        <div class="cart-foot">
+          <span>Press to load</span>
+          <span class="gamepad-btn a">A</span>
+        </div>
+      </a>
+
+      <!-- Learning Resources -->
+      <a class="cartridge" href="https://github.com/outscal/Outscal-Game-Dev-Resources" target="_blank" rel="noopener">
+        <div class="cart-top">
+          <span class="cart-slot"><span class="num">02</span> · Slot B</span>
+          <span class="cart-slot">OUTSCAL™</span>
+        </div>
+        <div class="cart-label">
+          <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <rect x="10" y="8" width="28" height="32" rx="1.5" stroke="#0A0A0A" stroke-width="2.5"/>
+            <path d="M 14 12 L 14 36" stroke="#0A0A0A" stroke-width="2.5"/>
+            <path d="M 28 8 L 28 22 L 31 19 L 34 22 L 34 8 Z" fill="#F5C518" stroke="#0A0A0A" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+          <h3>Learning Resources</h3>
+          <p>Stories, quizzes, cheat sheets, deep-dives. Open under CC BY 4.0.</p>
+        </div>
+        <div class="cart-foot">
+          <span>Press to load</span>
+          <span class="gamepad-btn b">B</span>
+        </div>
+      </a>
+
+      <!-- Open Jobs -->
+      <a class="cartridge" href="https://github.com/outscal/OpenJobs" target="_blank" rel="noopener">
+        <div class="cart-top">
+          <span class="cart-slot"><span class="num">03</span> · Slot X</span>
+          <span class="cart-slot">OUTSCAL™</span>
+        </div>
+        <div class="cart-label">
+          <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M 19 14 L 19 11 Q 19 9 21 9 L 27 9 Q 29 9 29 11 L 29 14" stroke="#0A0A0A" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+            <rect x="8" y="14" width="32" height="24" rx="2" stroke="#0A0A0A" stroke-width="2.5"/>
+            <line x1="8" y1="22" x2="40" y2="22" stroke="#0A0A0A" stroke-width="2.5"/>
+            <rect x="17" y="27" width="14" height="7" rx="0.5" fill="#F5C518" stroke="#0A0A0A" stroke-width="2.5"/>
+          </svg>
+          <h3>Open Jobs</h3>
+          <p>The board that matched studios and developers. Archived, open.</p>
+        </div>
+        <div class="cart-foot">
+          <span>Press to load</span>
+          <span class="gamepad-btn x">X</span>
+        </div>
+      </a>
+
+      <!-- AI Video (locked) -->
+      <div class="cartridge locked" aria-disabled="true">
+        <div class="cart-top">
+          <span class="cart-slot"><span class="num">04</span> · Slot Y</span>
+          <span class="cart-slot">LOCKED</span>
+        </div>
+        <div class="cart-label">
+          <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M 16 22 L 16 16 Q 16 8 24 8 Q 32 8 32 16 L 32 22" stroke="#0A0A0A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <rect x="11" y="22" width="26" height="18" rx="2" fill="#F5C518" stroke="#0A0A0A" stroke-width="2.5"/>
+            <circle cx="24" cy="29" r="2" fill="#0A0A0A"/>
+            <rect x="23" y="30.5" width="2" height="4.5" fill="#0A0A0A"/>
+          </svg>
+          <h3>AI Video Gen</h3>
+          <p>Script-to-video tool. Unlocking soon.</p>
+        </div>
+        <div class="cart-foot">
+          <span>? ? ?</span>
+          <span class="gamepad-btn y">Y</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="game-over">
+  <div class="wrap">
+    <span class="line">
+      <span class="over">GAME OVER</span>
+      <span class="dot">·</span>
+      <span>SAVE DATA <span class="corrupted">CORRUPTED</span></span>
+    </span>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <strong>The Outscal Ultimate Archive</strong>
+    <span class="sep">·</span>
+    <span class="lockup">By <span class="wordmark" role="img" aria-label="Outscal"></span></span>
+    <span class="sep">·</span>
+    <span>2021 — 2026</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const cards = document.querySelectorAll('.cartridge');
+  const keyMap = { a: 0, b: 1, x: 2, y: 3 };
+
+  window.addEventListener('keydown', (e) => {
+    const t = document.activeElement;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+    const idx = keyMap[e.key.toLowerCase()];
+    if (idx === undefined) return;
+
+    const card = cards[idx];
+    if (!card || card.classList.contains('locked')) return;
+
+    e.preventDefault();
+    card.classList.add('pressed');
+    setTimeout(() => {
+      card.classList.remove('pressed');
+      card.click();
+    }, 110);
+  });
+})();
+</script>
+
+</body>
+</html>
