@@ -7,15 +7,10 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            cd /home/ubuntu/outscal-ultimate-archive
-            git pull origin main
-            pm2 restart outscal-archive
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Restart pm2
+        run: pm2 restart outscal-archive
