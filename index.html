@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>The Outscal Ultimate Archive</title>
 <meta name="description" content="Everything Outscal built stays open for all — courses, resources, jobs, and more." />
-<link rel="icon" type="image/gif" href="outscal.gif" />
+<link rel="icon" type="image/gif" href="assets/outscal.gif" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -216,7 +216,7 @@ img { max-width: 100%; height: auto; display: block; }
 .cart-spec {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 4px;
+  gap: 8px 4px;
   padding: 10px 12px;
   background: var(--paper-tint);
   border: 1px solid var(--rule);
@@ -245,21 +245,86 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: .1em;
 }
 
+/* Spec-group wrapper — sits at the bottom of the card like .cart-spec did */
+.cart-label .spec-group {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cart-label .spec-group .cart-spec { margin-top: 0; }
+
+/* Resources hero block — big total + inline item strip */
+.spec-hero {
+  padding: 12px;
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  width: 100%;
+}
+.spec-hero .hero-num {
+  font-family: var(--serif);
+  font-size: 44px;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--ink);
+}
+.spec-hero .hero-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 4px 0 10px;
+}
+.spec-hero .hero-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 3px 7px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--rule);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .02em;
+}
+.spec-hero .hero-items strong {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  margin-right: 2px;
+}
+.spec-hero .hero-items .sep { opacity: .5; }
+
 /* topic tags */
 .cart-tags {
   display: flex; flex-wrap: wrap; gap: 4px;
   width: 100%;
 }
 .cart-tags .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--mono);
-  font-size: 10px;
-  padding: 3px 7px;
+  font-size: 12px;
+  padding: 5px 10px;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 4px;
   color: var(--ink-soft);
   background: var(--paper);
   letter-spacing: .04em;
   font-weight: 500;
+}
+.cart-tags .tag svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: currentColor;
 }
 
 .cartridge .cart-foot {
@@ -303,6 +368,30 @@ img { max-width: 100%; height: auto; display: block; }
 .cartridge:hover .gamepad-btn { transform: scale(1.08); }
 .cartridge.pressed .gamepad-btn { transform: scale(0.9); }
 .cartridge.locked .gamepad-btn { filter: grayscale(0.85); opacity: .55; }
+
+/* Outscal globe gif — replaces OUTSCAL™ text in the cart-top */
+.globe-spin {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  display: block;
+  opacity: .9;
+}
+
+/* OPEN SOURCE badge — sits in the cart-top band, pushed to the right beside the globe */
+.oss-badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  color: #0A0A0A;
+  background: var(--yellow);
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  line-height: 1.25;
+  white-space: nowrap;
+  margin-left: auto;
+}
 
 .cartridge.locked .cart-top { background: var(--muted); }
 .cartridge.locked .cart-top::after {
@@ -377,7 +466,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: inline-block;
   width: 112px;
   height: 22px;
-  background: url("outscal.png") 51.1% 47.7% / auto 425% no-repeat;
+  background: url("assets/outscal.png") 51.1% 47.7% / auto 425% no-repeat;
   vertical-align: middle;
   opacity: .9;
 }
@@ -389,7 +478,7 @@ img { max-width: 100%; height: auto; display: block; }
 <header class="masthead">
   <div class="wrap masthead-inner">
     <a class="brand" href="index.html" aria-label="The Outscal Ultimate Archive — home">
-      <img class="mark" src="outscal.gif" alt="" aria-hidden="true" />
+      <img class="mark" src="assets/outscal.gif" alt="" aria-hidden="true" />
       <span class="title">
         <span>The Ultimate Archive<span class="dot">.</span></span>
         <span class="by">by Outscal</span>
@@ -413,7 +502,8 @@ img { max-width: 100%; height: auto; display: block; }
       <a class="cartridge" href="https://outscal.github.io/Full-Stack-Game-Development" target="_blank" rel="noopener">
         <div class="cart-top">
           <span class="cart-slot"><span class="num">01</span> · Slot A</span>
-          <span class="cart-slot">OUTSCAL™</span>
+          <span class="oss-badge">Open Source</span>
+          <img class="globe-spin" src="assets/outscal.gif" alt="" aria-hidden="true" />
         </div>
         <div class="cart-label">
           <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -425,15 +515,33 @@ img { max-width: 100%; height: auto; display: block; }
           <h3>Full Stack Game Dev</h3>
           <p>The cohort syllabus. Zero to shippable.</p>
           <div class="cart-tags">
-            <span class="tag">C++</span>
-            <span class="tag">DSA</span>
-            <span class="tag">Unity</span>
-            <span class="tag">Design Patterns</span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M 5 4 L 2 8 L 5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 11 4 L 14 8 L 11 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              C++
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="3" cy="8" r="1.8" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="1.8" stroke="currentColor" stroke-width="1.3"/><circle cx="13" cy="8" r="1.8" stroke="currentColor" stroke-width="1.3"/><line x1="4.8" y1="8" x2="6.2" y2="8" stroke="currentColor" stroke-width="1.3"/><line x1="9.8" y1="8" x2="11.2" y2="8" stroke="currentColor" stroke-width="1.3"/></svg>
+              DSA
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M 8 2 L 13.5 5 L 13.5 11 L 8 14 L 2.5 11 L 2.5 5 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M 2.5 5 L 8 8 L 13.5 5 M 8 8 L 8 14" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+              Unity
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="9" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="0.5" stroke="currentColor" stroke-width="1.3"/></svg>
+              Design Patterns
+            </span>
           </div>
-          <div class="cart-spec">
-            <div class="spec"><strong>31</strong><span>modules</span></div>
-            <div class="spec"><strong>218</strong><span>chapters</span></div>
-            <div class="spec"><strong>1,677</strong><span>materials</span></div>
+          <div class="spec-group">
+            <div class="spec-hero">
+              <div class="hero-num">1,677</div>
+              <div class="hero-label">materials</div>
+              <div class="hero-items">
+                <span><strong>31</strong> modules</span>
+                <span class="sep">·</span>
+                <span><strong>218</strong> chapters</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="cart-foot">
@@ -443,10 +551,11 @@ img { max-width: 100%; height: auto; display: block; }
       </a>
 
       <!-- Learning Resources -->
-      <a class="cartridge" href="https://github.com/outscal/Outscal-Game-Dev-Resources" target="_blank" rel="noopener">
+      <a class="cartridge" href="https://outscal.github.io/Outscal-Game-Dev-Resources/" target="_blank" rel="noopener">
         <div class="cart-top">
           <span class="cart-slot"><span class="num">02</span> · Slot B</span>
-          <span class="cart-slot">OUTSCAL™</span>
+          <span class="oss-badge">Open Source</span>
+          <img class="globe-spin" src="assets/outscal.gif" alt="" aria-hidden="true" />
         </div>
         <div class="cart-label">
           <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -455,7 +564,27 @@ img { max-width: 100%; height: auto; display: block; }
             <path d="M 28 8 L 28 22 L 31 19 L 34 22 L 34 8 Z" fill="#F5C518" stroke="#0A0A0A" stroke-width="2.5" stroke-linejoin="round"/>
           </svg>
           <h3>Learning Resources</h3>
-          <p>Stories, quizzes, cheat sheets, deep-dives. Open under CC BY 4.0.</p>
+          <p>Everything Outscal published for game devs. Now free for all to learn from.</p>
+
+          <div class="spec-group">
+            <div class="spec-hero">
+              <div class="hero-num">194</div>
+              <div class="hero-label">items in the archive</div>
+              <div class="hero-items">
+                <span><strong>44</strong> stories</span>
+                <span class="sep">·</span>
+                <span><strong>61</strong> cheat sheets</span>
+                <span class="sep">·</span>
+                <span><strong>29</strong> quizzes</span>
+                <span class="sep">·</span>
+                <span><strong>35</strong> hack guides</span>
+                <span class="sep">·</span>
+                <span><strong>14</strong> breakdowns</span>
+                <span class="sep">·</span>
+                <span><strong>11</strong> Project Ideas &amp; Roadmaps</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="cart-foot">
           <span>Press to load</span>
@@ -467,7 +596,8 @@ img { max-width: 100%; height: auto; display: block; }
       <a class="cartridge" href="https://github.com/outscal/OpenJobs" target="_blank" rel="noopener">
         <div class="cart-top">
           <span class="cart-slot"><span class="num">03</span> · Slot X</span>
-          <span class="cart-slot">OUTSCAL™</span>
+          <span class="oss-badge">Open Source</span>
+          <img class="globe-spin" src="assets/outscal.gif" alt="" aria-hidden="true" />
         </div>
         <div class="cart-label">
           <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -477,7 +607,7 @@ img { max-width: 100%; height: auto; display: block; }
             <rect x="17" y="27" width="14" height="7" rx="0.5" fill="#F5C518" stroke="#0A0A0A" stroke-width="2.5"/>
           </svg>
           <h3>Open Jobs</h3>
-          <p>The board that matched studios and developers. Archived, open.</p>
+          <p>Outscal's gaming jobs platform, now open-sourced as a CLI.</p>
         </div>
         <div class="cart-foot">
           <span>Press to load</span>
@@ -485,27 +615,56 @@ img { max-width: 100%; height: auto; display: block; }
         </div>
       </a>
 
-      <!-- AI Video (locked) -->
-      <div class="cartridge locked" aria-disabled="true">
+      <!-- AI Video Generator -->
+      <a class="cartridge" href="https://github.com/outscal/video-generator" target="_blank" rel="noopener">
         <div class="cart-top">
           <span class="cart-slot"><span class="num">04</span> · Slot Y</span>
-          <span class="cart-slot">LOCKED</span>
+          <span class="oss-badge">Open Source</span>
+          <img class="globe-spin" src="assets/outscal.gif" alt="" aria-hidden="true" />
         </div>
         <div class="cart-label">
           <svg class="pictogram" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <path d="M 16 22 L 16 16 Q 16 8 24 8 Q 32 8 32 16 L 32 22" stroke="#0A0A0A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <rect x="11" y="22" width="26" height="18" rx="2" fill="#F5C518" stroke="#0A0A0A" stroke-width="2.5"/>
-            <circle cx="24" cy="29" r="2" fill="#0A0A0A"/>
-            <rect x="23" y="30.5" width="2" height="4.5" fill="#0A0A0A"/>
+            <rect x="6" y="14" width="36" height="20" rx="1.5" stroke="#0A0A0A" stroke-width="2.5"/>
+            <rect x="10" y="16" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="17" y="16" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="24" y="16" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="31" y="16" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="10" y="29.5" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="17" y="29.5" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="24" y="29.5" width="3" height="2.5" fill="#0A0A0A"/>
+            <rect x="31" y="29.5" width="3" height="2.5" fill="#0A0A0A"/>
+            <polygon points="21,21 21,27 27,24" fill="#F5C518" stroke="#0A0A0A" stroke-width="2" stroke-linejoin="round"/>
           </svg>
-          <h3>AI Video Gen</h3>
-          <p>Script-to-video tool. Unlocking soon.</p>
+          <h3>AI Video Generator</h3>
+          <p>Outscal's AI Video Generation tool, now open-sourced as a CLI.</p>
+          <div class="cart-tags">
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M 4 2 L 10 2 L 13 5 L 13 14 L 4 14 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M 10 2 L 10 5 L 13 5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><line x1="6" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="6" y1="10.5" x2="11" y2="10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              Script Gen
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1" y="3" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1.3"/><rect x="6" y="3" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1.3"/><rect x="11" y="3" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1.3"/><line x1="2" y1="9" x2="14" y2="9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="2" y1="11.5" x2="11" y2="11.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/><line x1="2" y1="14" x2="8" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.6"/></svg>
+              Scene Gen
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><line x1="2" y1="7.5" x2="2" y2="8.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="4.5" y1="6" x2="4.5" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="7" y1="4" x2="7" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="9" y1="3" x2="9" y2="13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="11.5" y1="5" x2="11.5" y2="11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="14" y1="7" x2="14" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              ElevenLabs
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M 11 3 L 14 6 L 8 12 L 5 9 Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M 5 9 L 3 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M 6 10 L 4 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              Art Styles
+            </span>
+            <span class="tag">
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M 2 12 C 2 7 6 3 8 7 C 10 11 13 8 14 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/><rect x="0.5" y="10.5" width="3" height="3" stroke="currentColor" stroke-width="1.2"/><rect x="12.5" y="2.5" width="3" height="3" stroke="currentColor" stroke-width="1.2"/></svg>
+              SVG Visuals
+            </span>
+          </div>
         </div>
         <div class="cart-foot">
-          <span>? ? ?</span>
+          <span>Press to load</span>
           <span class="gamepad-btn y">Y</span>
         </div>
-      </div>
+      </a>
 
     </div>
   </div>
